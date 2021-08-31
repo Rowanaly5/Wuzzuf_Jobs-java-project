@@ -1,0 +1,81 @@
+import java.util.*;
+
+public class JobsDataService {
+
+    public void FilterJobsByTitle(List<JobDetails> jobs){
+        ArrayList records = new ArrayList<>();
+        for(JobDetails title : jobs){
+            records.add(title.getTitle()); }
+        Map<Object, Integer> frequencyMap = new HashMap<>();
+        for (Object s: records) {
+            Integer count = frequencyMap.get(s);
+            if (count == null) {
+                count = 0; }
+            frequencyMap.put(s, count + 1); }
+        for (Map.Entry<Object, Integer> entry: frequencyMap.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue()); } }
+
+    public void FilterJobsByCountry(List<JobDetails> jobs){
+        ArrayList records = new ArrayList<>();
+        for(JobDetails Country : jobs){
+            records.add(Country.getCountry()); }
+        Map<Object, Integer> frequencyMap = new HashMap<>();
+        for (Object s: records) {
+            Integer count = frequencyMap.get(s);
+            if (count == null) {
+                count = 0; }
+            frequencyMap.put(s, count + 1); }
+        for (Map.Entry<Object, Integer> entry: frequencyMap.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue()); } }
+
+    public void FilterJobsByLevel(List<JobDetails> jobs){
+        ArrayList records = new ArrayList<>();
+        for(JobDetails level : jobs){
+            records.add(level.getLevel()); }
+        Map<Object, Integer> frequencyMap = new HashMap<>();
+        for (Object s: records) {
+            Integer count = frequencyMap.get(s);
+            if (count == null) {
+                count = 0; }
+            frequencyMap.put(s, count + 1); }
+        for (Map.Entry<Object, Integer> entry: frequencyMap.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue()); } }
+
+    public void FilterJobsByYearsExp(List<JobDetails> jobs){
+        ArrayList records = new ArrayList<>();
+        for(JobDetails YearsExp : jobs){
+            records.add(YearsExp.getYearsExp()); }
+        Map<Object, Integer> frequencyMap = new HashMap<>();
+        for (Object s: records) {
+            Integer count = frequencyMap.get(s);
+            if (count == null) {
+                count = 0; }
+            frequencyMap.put(s, count + 1); }
+        Map<String, Integer> sortedHashMap = LinkedHashMap((HashMap) frequencyMap);
+        Set set = sortedHashMap.entrySet();
+        Iterator iterator = set.iterator();
+        while(iterator.hasNext()) {
+            Map.Entry me = (Map.Entry)iterator.next();
+            System.out.print(me.getKey() + ": ");
+            System.out.println(me.getValue());
+        }
+    }
+
+    private static HashMap LinkedHashMap(HashMap map) {
+        List list = new LinkedList(map.entrySet());
+        Collections.sort(list, new Comparator() {
+            public int compare(Object o1, Object o2) {
+                return ((Comparable) ((Map.Entry) (o1)).getValue())
+                        .compareTo(((Map.Entry) (o2)).getValue());
+            }
+        });
+
+
+        HashMap sortedHashMap = new LinkedHashMap();
+        for (Iterator it = list.iterator(); it.hasNext();) {
+            Map.Entry entry = (Map.Entry) it.next();
+            sortedHashMap.put(entry.getKey(), entry.getValue());
+        }
+        return sortedHashMap;
+    }
+}
